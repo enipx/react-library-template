@@ -59,6 +59,7 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "lint": "eslint \"**/*.{ts,tsx}\" --config .eslintrc --cache"
   }
 }
