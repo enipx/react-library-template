@@ -1,12 +1,11 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import cleaner from 'rollup-plugin-cleaner';
+import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import dts from "rollup-plugin-dts";
+import cleaner from 'rollup-plugin-cleaner';
+import dts from 'rollup-plugin-dts';
 import { minify } from 'rollup-plugin-esbuild';
-import { babel } from '@rollup/plugin-babel';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import typescript from 'rollup-plugin-typescript2';
-
 
 export default [
   {
@@ -30,17 +29,23 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      babel({ babelHelpers: 'bundled' }),
+      babel({
+        babelHelpers: 'bundled',
+      }),
       typescript({
         exclude: ['**/*.stories.tsx', '**/*.test.tsx', './jest-setup.ts'],
       }),
-      minify()
+      minify(),
     ],
-  
   },
   {
     input: 'src/index.tsx',
-    output: [{ file: "dist/index.d.ts", format: "es" }],
+    output: [
+      {
+        file: 'dist/index.d.ts',
+        format: 'es',
+      },
+    ],
     plugins: [dts()],
   },
 ];
